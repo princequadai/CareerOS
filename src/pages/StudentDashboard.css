@@ -1,0 +1,634 @@
+.sd-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.sd-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 998;
+}
+
+.sd-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 12px;
+  z-index: 999;
+  transition: left 0.25s ease;
+  overflow-y: auto;
+}
+
+.sd-sidebar.closed {
+  left: -280px;
+}
+
+.sd-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.sd-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sd-logo-text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sd-close-btn {
+  background: #f1f5f9;
+  border: none;
+  border-radius: 8px;
+  padding: 6px;
+  cursor: pointer;
+  color: #64748b;
+  display: flex;
+}
+
+.sd-user-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 20px;
+}
+
+.sd-user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  flex-shrink: 0;
+}
+
+.sd-user-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #0f172a;
+  font-family: 'Poppins', sans-serif;
+  margin: 0 0 2px;
+}
+
+.sd-user-role {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+.sd-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.sd-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  width: 100%;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.sd-nav-btn.active {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.sd-nav-btn.inactive {
+  background: transparent;
+  color: #64748b;
+}
+
+.sd-nav-btn.inactive:hover {
+  background: #f8fafc;
+}
+
+.sd-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  color: #ef4444;
+  background: transparent;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.sd-logout-btn:hover {
+  background: #fff1f2;
+}
+
+/* Main Content */
+.sd-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  width: 100%;
+  padding-bottom: 20px;
+  margin-left: 260px; /* Space for sidebar */
+  transition: margin-left 0.25s ease;
+}
+
+.sd-topbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.sd-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sd-menu-btn {
+  background: #f1f5f9;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  color: #475569;
+  display: none;
+}
+
+.sd-topbar-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+.sd-topbar-subtitle {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+.sd-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sd-bell-btn {
+  background: #f1f5f9;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  color: #64748b;
+  display: flex;
+}
+
+.sd-topbar-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sd-content-area {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Dashboard Specifics */
+.sd-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.sd-stat-card {
+  border-radius: 14px;
+  padding: 16px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sd-stat-icon {
+  font-size: 1.8rem;
+}
+
+.sd-stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+.sd-stat-label {
+  font-size: 0.72rem;
+  color: #64748b;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+.sd-section-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  padding: 16px;
+}
+
+.sd-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.sd-section-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+.sd-section-btn {
+  background: #eff6ff;
+  color: #2563eb;
+  border: none;
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sd-section-btn:hover {
+  background: #dbeafe;
+}
+
+.sd-empty-state {
+  text-align: center;
+  padding: 28px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.sd-empty-icon {
+  font-size: 2rem;
+}
+
+.sd-empty-text {
+  font-size: 0.88rem;
+  color: #64748b;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+.sd-primary-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
+.sd-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sd-list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.sd-list-item-img {
+  width: 64px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.sd-list-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sd-list-item-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0f172a;
+  font-family: 'Poppins', sans-serif;
+  margin: 0 0 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sd-list-item-subtitle {
+  font-size: 0.72rem;
+  color: #64748b;
+  font-family: 'Poppins', sans-serif;
+  margin: 0 0 4px;
+}
+
+.sd-list-item-tags {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.sd-tag {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+}
+
+.sd-list-item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.sd-action-btn-primary {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 6px 10px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
+.sd-action-btn-danger {
+  background: #fff1f2;
+  color: #ef4444;
+  border: 1px solid #fecdd3;
+  border-radius: 7px;
+  padding: 6px 10px;
+  font-size: 0.72rem;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
+.sd-quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.sd-quick-action-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s;
+}
+
+.sd-quick-action-card:hover {
+  background: #f1f5f9;
+}
+
+.sd-quick-action-icon {
+  font-size: 1.6rem;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.sd-quick-action-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #0f172a;
+  font-family: 'Poppins', sans-serif;
+  margin: 0 0 3px;
+}
+
+.sd-quick-action-desc {
+  font-size: 0.7rem;
+  color: #64748b;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+/* Settings Form */
+.sd-settings-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.sd-settings-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #2563eb;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sd-settings-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  font-family: 'Poppins', sans-serif;
+  margin: 0 0 3px;
+}
+
+.sd-settings-email {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+.sd-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sd-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sd-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sd-input {
+  padding: 11px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
+  color: #1e293b;
+  outline: none;
+  width: 100%;
+}
+
+.sd-save-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* RESPONSIVE DESIGN */
+
+/* Tablet & Laptop */
+@media (max-width: 1024px) {
+  .sd-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sd-quick-actions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .sd-sidebar {
+    left: -280px;
+  }
+  .sd-sidebar.open {
+    left: 0;
+  }
+  .sd-main {
+    margin-left: 0;
+  }
+  .sd-menu-btn {
+    display: flex;
+  }
+  .sd-close-btn {
+    display: flex;
+  }
+  .sd-stats-grid,
+  .sd-quick-actions-grid {
+    grid-template-columns: 1fr;
+  }
+  .sd-list-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .sd-list-item-img {
+    width: 100%;
+    height: 120px;
+  }
+  .sd-list-item-actions {
+    flex-direction: row;
+    width: 100%;
+  }
+  .sd-action-btn-primary,
+  .sd-action-btn-danger {
+    flex: 1;
+  }
+}
+
+/* For Desktop - ensure close button is hidden if desired, though design showed it */
+@media (min-width: 769px) {
+  .sd-sidebar {
+    left: 0 !important;
+  }
+  .sd-close-btn {
+    display: none;
+  }
+}

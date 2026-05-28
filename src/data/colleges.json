@@ -1,0 +1,265 @@
+[
+  {
+    "id": 1,
+    "name": "Patna Science College",
+    "slug": "patna-science-college",
+    "type": "Government",
+    "established": 1863,
+    "location": "Ashok Rajpath, Patna",
+    "district": "Patna",
+    "state": "Bihar",
+    "rating": 4.5,
+    "totalReviews": 320,
+    "image": "https://images.unsplash.com/photo-1562774053-701939374585?w=600",
+    "images": [
+      "https://images.unsplash.com/photo-1562774053-701939374585?w=600",
+      "https://images.unsplash.com/photo-1580537659466-0a9bfa916a54?w=600",
+      "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600"
+    ],
+    "fees": {
+      "min": 5000,
+      "max": 15000
+    },
+    "courses": ["B.Sc", "M.Sc", "Ph.D"],
+    "popularCourse": "B.Sc Physics",
+    "placement": {
+      "percentage": 78,
+      "averagePackage": "3.5 LPA",
+      "highestPackage": "8 LPA",
+      "topRecruiters": ["TCS", "Infosys", "Wipro"]
+    },
+    "facilities": {
+      "hostel": true,
+      "library": true,
+      "sportsGround": true,
+      "cafeteria": true,
+      "wifi": true,
+      "lab": true,
+      "transport": false,
+      "medicalCenter": true
+    },
+    "description": "Patna Science College is one of the oldest and most prestigious science colleges in Bihar, affiliated to Patna University.",
+    "affiliation": "Patna University",
+    "approved": true,
+    "featured": true,
+    "enquiries": []
+  },
+  {
+    "id": 2,
+    "name": "Patna Women's College",
+    "slug": "patna-womens-college",
+    "type": "Government",
+    "established": 1940,
+    "location": "Bailey Road, Patna",
+    "district": "Patna",
+    "state": "Bihar",
+    "rating": 4.3,
+    "totalReviews": 210,
+    "image": "https://images.unsplash.com/photo-1580537659466-0a9bfa916a54?w=600",
+    "images": [
+      "https://images.unsplash.com/photo-1580537659466-0a9bfa916a54?w=600",
+      "https://images.unsplash.com/photo-1562774053-701939374585?w=600"
+    ],
+    "fees": {
+      "min": 4000,
+      "max": 12000
+    },
+    "courses": ["B.A", "B.Sc", "B.Com", "M.A"],
+    "popularCourse": "B.A English",
+    "placement": {
+      "percentage": 72,
+      "averagePackage": "3 LPA",
+      "highestPackage": "6 LPA",
+      "topRecruiters": ["HDFC Bank", "SBI", "Axis Bank"]
+    },
+    "facilities": {
+      "hostel": true,
+      "library": true,
+      "sportsGround": true,
+      "cafeteria": true,
+      "wifi": true,
+      "lab": true,
+      "transport": true,
+      "medicalCenter": true
+    },
+    "description": "Patna Women's College is a premier women's college in Bihar known for academic excellence and holistic development.",
+    "affiliation": "Patna University",
+    "approved": true,
+    "featured": true,
+    "enquiries": []
+  },
+  {
+    "id": 3,
+    "name": "Nalanda Medical College",
+    "slug": "nalanda-medical-college",
+    "type": "Government",
+    "established": 1970,
+    "location": "Agamkuan, Patna",
+    "district": "Patna",
+    "state": "Bihar",
+    "rating": 4.2,
+    "totalReviews": 180,
+    "image": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600",
+    "images": [
+      "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600",
+      "https://images.unsplash.com/photo-1562774053-701939374585?w=600"
+    ],
+    "fees": {
+      "min": 10000,
+      "max": 50000
+    },
+    "courses": ["MBBS", "MD", "MS", "BDS"],
+    "popularCourse": "MBBS",
+    "placement": {
+      "percentage": 95,
+      "averagePackage": "8 LPA",
+      "highestPackage": "20 LPA",
+      "topRecruiters": ["AIIMS", "PMCH", "Apollo"]
+    },
+    "facilities": {
+      "hostel": true,
+      "library": true,
+      "sportsGround": true,
+      "cafeteria": true,
+      "wifi": true,
+      "lab": true,
+      "transport": true,
+      "medicalCenter": true
+    },
+    "description": "Nalanda Medical College and Hospital is a leading medical institution in Bihar offering world-class medical education.",
+    "affiliation": "BMUS",
+    "approved": true,
+    "featured": true,
+    "enquiries": []
+  },
+  {
+    "id": 4,
+    "name": "MIT Patna",
+    "slug": "mit-patna",
+    "type": "Private",
+    "established": 2008,
+    "location": "Mithapur, Patna",
+    "district": "Patna",
+    "state": "Bihar",
+    "rating": 4.0,
+    "totalReviews": 150,
+    "image": "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=600",
+    "images": [
+      "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=600",
+      "https://images.unsplash.com/photo-1562774053-701939374585?w=600"
+    ],
+    "fees": {
+      "min": 80000,
+      "max": 150000
+    },
+    "courses": ["B.Tech", "M.Tech", "MBA", "BCA", "MCA"],
+    "popularCourse": "B.Tech CSE",
+    "placement": {
+      "percentage": 88,
+      "averagePackage": "5.5 LPA",
+      "highestPackage": "18 LPA",
+      "topRecruiters": ["TCS", "Wipro", "Amazon", "Cognizant"]
+    },
+    "facilities": {
+      "hostel": true,
+      "library": true,
+      "sportsGround": true,
+      "cafeteria": true,
+      "wifi": true,
+      "lab": true,
+      "transport": true,
+      "medicalCenter": false
+    },
+    "description": "MIT Patna is a top engineering and management institution in Bihar offering industry-oriented programs.",
+    "affiliation": "AKTU",
+    "approved": true,
+    "featured": true,
+    "enquiries": []
+  },
+  {
+    "id": 5,
+    "name": "Gyan Bharati Institute",
+    "slug": "gyan-bharati-institute",
+    "type": "Private",
+    "established": 2005,
+    "location": "Boring Road, Patna",
+    "district": "Patna",
+    "state": "Bihar",
+    "rating": 3.8,
+    "totalReviews": 95,
+    "image": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600",
+    "images": [
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600"
+    ],
+    "fees": {
+      "min": 40000,
+      "max": 90000
+    },
+    "courses": ["BBA", "MBA", "B.Com", "M.Com"],
+    "popularCourse": "MBA",
+    "placement": {
+      "percentage": 80,
+      "averagePackage": "4 LPA",
+      "highestPackage": "10 LPA",
+      "topRecruiters": ["HDFC", "ICICI", "Deloitte"]
+    },
+    "facilities": {
+      "hostel": false,
+      "library": true,
+      "sportsGround": false,
+      "cafeteria": true,
+      "wifi": true,
+      "lab": false,
+      "transport": true,
+      "medicalCenter": false
+    },
+    "description": "Gyan Bharati Institute is a well-known management college in Patna offering professional business programs.",
+    "affiliation": "Magadh University",
+    "approved": true,
+    "featured": false,
+    "enquiries": []
+  },
+  {
+    "id": 6,
+    "name": "Patna Law College",
+    "slug": "patna-law-college",
+    "type": "Government",
+    "established": 1921,
+    "location": "Patna University Campus, Patna",
+    "district": "Patna",
+    "state": "Bihar",
+    "rating": 4.1,
+    "totalReviews": 130,
+    "image": "https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=600",
+    "images": [
+      "https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=600"
+    ],
+    "fees": {
+      "min": 3000,
+      "max": 8000
+    },
+    "courses": ["LLB", "LLM"],
+    "popularCourse": "LLB",
+    "placement": {
+      "percentage": 70,
+      "averagePackage": "4 LPA",
+      "highestPackage": "12 LPA",
+      "topRecruiters": ["Patna High Court", "Law Firms", "Government"]
+    },
+    "facilities": {
+      "hostel": false,
+      "library": true,
+      "sportsGround": false,
+      "cafeteria": true,
+      "wifi": true,
+      "lab": false,
+      "transport": false,
+      "medicalCenter": false
+    },
+    "description": "Patna Law College is one of the oldest law colleges in India, producing top lawyers and judges.",
+    "affiliation": "Patna University",
+    "approved": true,
+    "featured": false,
+    "enquiries": []
+  }
+]

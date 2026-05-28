@@ -1,0 +1,261 @@
+.navbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.navbar-logo-text {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1e293b;
+  font-family: 'Poppins', sans-serif;
+  white-space: nowrap;
+}
+
+.navbar-logo-accent {
+  color: #2563eb;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: #475569;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.navbar-link:hover {
+  color: #2563eb;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-icon-btn {
+  background: #f1f5f9;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.navbar-icon-btn:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.navbar-dropdown-wrapper {
+  position: relative;
+}
+
+.navbar-login-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 16px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.navbar-login-btn:hover {
+  background: #1d4ed8;
+}
+
+.navbar-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  border: 1px solid #e2e8f0;
+  min-width: 200px;
+  padding: 8px;
+  z-index: 9999;
+}
+
+.navbar-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
+  color: #334155;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s ease;
+}
+
+.navbar-dropdown-item:hover {
+  background: #f8fafc;
+}
+
+.navbar-dropdown-divider {
+  height: 1px;
+  background: #e2e8f0;
+  margin: 6px 0;
+}
+
+.navbar-dropdown-signup {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  background: #eff6ff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s ease;
+}
+
+.navbar-dropdown-signup:hover {
+  background: #dbeafe;
+}
+
+.navbar-menu-btn {
+  background: #f1f5f9;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  color: #475569;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-mobile-menu {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 16px 20px;
+  border-top: 1px solid #e2e8f0;
+  background: #ffffff;
+  gap: 2px;
+}
+
+.navbar-mobile-link {
+  text-decoration: none;
+  color: #334155;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 12px 8px;
+  border-bottom: 1px solid #f1f5f9;
+  font-family: 'Poppins', sans-serif;
+}
+
+.navbar-mobile-divider {
+  height: 1px;
+  background: #e2e8f0;
+  margin: 8px 0;
+}
+
+.navbar-mobile-signup {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 13px 16px;
+  font-family: 'Poppins', sans-serif;
+  background: #2563eb;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 8px;
+  display: block;
+}
+
+/* Responsive Laptop / Small Desktop */
+@media (max-width: 1024px) {
+  .navbar-links {
+    gap: 16px;
+  }
+  .navbar-logo-text {
+    font-size: 1.2rem;
+  }
+  .navbar-link {
+    font-size: 0.9rem;
+  }
+}
+
+/* Responsive Tablet */
+@media (max-width: 850px) {
+  .navbar-links {
+    gap: 10px;
+  }
+  .navbar-login-btn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none;
+  }
+  .navbar-icon-btn, .navbar-dropdown-wrapper {
+    display: none;
+  }
+  .navbar-menu-btn {
+    display: flex;
+  }
+}
+
+@media (min-width: 769px) {
+  .navbar-mobile-menu {
+    display: none !important;
+  }
+}

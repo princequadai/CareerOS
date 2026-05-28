@@ -1,0 +1,260 @@
+.footer {
+  background: #0f172a;
+  color: #cbd5e1;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px 20px;
+}
+
+/* Top Section */
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+/* Brand Column */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-brand-text {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-brand-accent {
+  color: #60a5fa;
+}
+
+.footer-brand-desc {
+  font-size: 0.88rem;
+  color: #94a3b8;
+  line-height: 1.7;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 10px;
+}
+
+.footer-social-link {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  text-decoration: none;
+  border: 1px solid #334155;
+  transition: all 0.2s ease;
+}
+
+.footer-social-link:hover {
+  background: #60a5fa;
+  color: #ffffff;
+  border-color: #60a5fa;
+}
+
+/* Links Columns */
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-column-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+.footer-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: #94a3b8;
+  font-size: 0.88rem;
+  font-family: 'Poppins', sans-serif;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #60a5fa;
+}
+
+/* Contact Column */
+.footer-contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.footer-contact-icon {
+  margin-top: 2px;
+  flex-shrink: 0;
+  color: #60a5fa;
+}
+
+.footer-contact-text {
+  font-size: 0.88rem;
+  color: #94a3b8;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-contact-btn {
+  display: inline-block;
+  padding: 9px 20px;
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.2s ease;
+  text-align: center;
+}
+
+.footer-contact-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Divider */
+.footer-divider {
+  height: 1px;
+  background: #1e293b;
+  margin: 0 0 20px;
+}
+
+/* Bottom Section */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.footer-copyright {
+  font-size: 0.82rem;
+  color: #64748b;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+.footer-legal {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footer-legal-link {
+  font-size: 0.82rem;
+  color: #64748b;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  transition: color 0.2s ease;
+}
+
+.footer-legal-link:hover {
+  color: #94a3b8;
+}
+
+/* RESPONSIVE DESIGN */
+
+/* Laptop / Small Desktop */
+@media (max-width: 1024px) {
+  .footer-top {
+    grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+    gap: 24px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 850px) {
+  .footer-container {
+    padding: 50px 20px 20px;
+  }
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 24px;
+  }
+  .footer-brand {
+    grid-column: span 2;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+  .footer-legal {
+    justify-content: center;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .footer-container {
+    padding: 40px 16px 20px;
+  }
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 16px;
+  }
+  .footer-brand {
+    grid-column: span 2;
+  }
+  .footer-contact {
+    grid-column: span 2;
+  }
+  .footer-column-title {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+  }
+  .footer-link {
+    font-size: 0.85rem;
+  }
+  .footer-contact-btn {
+    display: block;
+    width: 100%;
+    padding: 11px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+}

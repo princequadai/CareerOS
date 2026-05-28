@@ -1,0 +1,81 @@
+.nf-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+}
+
+.nf-content {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.nf-code {
+  font-size: 7rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  font-family: 'Poppins', sans-serif;
+  margin: 0 0 8px;
+  line-height: 1;
+}
+
+.nf-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #0f172a;
+  font-family: 'Poppins', sans-serif;
+  margin: 0 0 12px;
+}
+
+.nf-subtitle {
+  font-size: 1rem;
+  color: #64748b;
+  font-family: 'Poppins', sans-serif;
+  margin: 0 0 32px;
+}
+
+.nf-btn-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.nf-primary-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 28px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
+.nf-secondary-btn {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 28px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .nf-code {
+    font-size: 5rem;
+  }
+  
+  .nf-title {
+    font-size: 1.4rem;
+  }
+  
+  .nf-btn-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
