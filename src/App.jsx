@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -19,11 +19,14 @@ import NotFoundPage from './pages/NotFoundPage'
 import Navbar from './components/common/Navbar'
 import Footer from './components/common/Footer'
 
-function App() {
+function AppContent() {
+  const location = useLocation()
+  const isDashboard = location.pathname.includes('/dashboard')
+
   return (
-    <BrowserRouter>
+    <>
       <ToastContainer position="top-right" autoClose={3000} />
-      <Navbar />
+      {!isDashboard && <Navbar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -39,7 +42,15 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      <Footer />
+      {!isDashboard && <Footer />}
+    </>
+  )
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   )
 }

@@ -219,6 +219,14 @@ const AdminDashboard = () => {
           </div>
         )}
 
+        <footer className="dashboard-footer">
+          <p>© {new Date().getFullYear()} CareerOS. All rights reserved.</p>
+          <div className="dashboard-footer-links">
+            <a href="/about" className="dashboard-footer-link">About</a>
+            <a href="/contact" className="dashboard-footer-link">Support</a>
+          </div>
+        </footer>
+
       </main>
     </div>
   )
