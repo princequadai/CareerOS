@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FiHome, FiHeart, FiSearch, FiBarChart2, FiSettings, FiLogOut, FiBell, FiX, FiMenu } from 'react-icons/fi'
 import { MdSchool } from 'react-icons/md'
+import { LuHeart, LuSearch, LuMailOpen, LuScale, LuTarget, LuMapPin, LuStar, LuTrendingUp } from 'react-icons/lu'
 import colleges from '../data/colleges.json'
 import './StudentDashboard.css'
 
@@ -105,13 +106,15 @@ const StudentDashboard = () => {
             {/* Stat Cards */}
             <div className="sd-stats-grid">
               {[
-                { icon: '❤️', label: 'Saved Colleges', value: savedColleges.length, color: '#fff1f2', border: '#fecdd3' },
-                { icon: '🔍', label: 'Viewed', value: 12, color: '#eff6ff', border: '#bfdbfe' },
-                { icon: '📩', label: 'Enquiries', value: 3, color: '#f0fdf4', border: '#bbf7d0' },
-                { icon: '⚖️', label: 'Comparisons', value: 5, color: '#fffbeb', border: '#fde68a' },
+                { icon: LuHeart, iconColor: '#ef4444', label: 'Saved Colleges', value: savedColleges.length, color: '#fff1f2', border: '#fecdd3' },
+                { icon: LuSearch, iconColor: '#3b82f6', label: 'Viewed', value: 12, color: '#eff6ff', border: '#bfdbfe' },
+                { icon: LuMailOpen, iconColor: '#10b981', label: 'Enquiries', value: 3, color: '#f0fdf4', border: '#bbf7d0' },
+                { icon: LuScale, iconColor: '#f59e0b', label: 'Comparisons', value: 5, color: '#fffbeb', border: '#fde68a' },
               ].map(stat => (
                 <div key={stat.label} className="sd-stat-card" style={{ background: stat.color, borderColor: stat.border }}>
-                  <span className="sd-stat-icon">{stat.icon}</span>
+                  <span className="sd-stat-icon" style={{ display: 'flex', color: stat.iconColor }}>
+                    <stat.icon size={26} />
+                  </span>
                   <div>
                     <p className="sd-stat-value">{stat.value}</p>
                     <p className="sd-stat-label">{stat.label}</p>
@@ -128,7 +131,9 @@ const StudentDashboard = () => {
               </div>
               {saved.length === 0 ? (
                 <div className="sd-empty-state">
-                  <span className="sd-empty-icon">❤️</span>
+                  <span className="sd-empty-icon" style={{ display: 'inline-flex', color: '#ef4444' }}>
+                    <LuHeart size={36} />
+                  </span>
                   <p className="sd-empty-text">No saved colleges yet</p>
                   <button className="sd-primary-btn" onClick={() => navigate('/colleges')}>Explore Colleges</button>
                 </div>
@@ -139,10 +144,14 @@ const StudentDashboard = () => {
                       <img src={college.image} alt={college.name} className="sd-list-item-img" />
                       <div className="sd-list-item-content">
                         <h3 className="sd-list-item-title">{college.name}</h3>
-                        <p className="sd-list-item-subtitle">📍 {college.location}</p>
+                        <p className="sd-list-item-subtitle" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                          <LuMapPin size={12} /> {college.location}
+                        </p>
                         <div className="sd-list-item-tags">
                           <span className="sd-tag">{college.type}</span>
-                          <span className="sd-tag">⭐ {college.rating}</span>
+                          <span className="sd-tag" style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', color: '#f59e0b' }}>
+                            <LuStar size={11} fill="#f59e0b" /> {college.rating}
+                          </span>
                         </div>
                       </div>
                       <div className="sd-list-item-actions">
@@ -160,13 +169,15 @@ const StudentDashboard = () => {
               <h2 className="sd-section-title" style={{ marginBottom: '14px' }}>Quick Actions</h2>
               <div className="sd-quick-actions-grid">
                 {[
-                  { icon: '🔍', label: 'Search Colleges', desc: 'Find colleges', action: () => navigate('/colleges') },
-                  { icon: '⚖️', label: 'Compare', desc: 'Compare colleges', action: () => navigate('/compare') },
-                  { icon: '🎯', label: 'Rank Predictor', desc: 'Find by rank', action: () => navigate('/colleges') },
-                  { icon: '📩', label: 'Send Enquiry', desc: 'Contact colleges', action: () => navigate('/colleges') },
+                  { icon: LuSearch, iconColor: '#3b82f6', label: 'Search Colleges', desc: 'Find colleges', action: () => navigate('/colleges') },
+                  { icon: LuScale, iconColor: '#f59e0b', label: 'Compare', desc: 'Compare colleges', action: () => navigate('/compare') },
+                  { icon: LuTarget, iconColor: '#ef4444', label: 'Rank Predictor', desc: 'Find by rank', action: () => navigate('/colleges') },
+                  { icon: LuMailOpen, iconColor: '#10b981', label: 'Send Enquiry', desc: 'Contact colleges', action: () => navigate('/colleges') },
                 ].map(action => (
                   <button key={action.label} className="sd-quick-action-card" onClick={action.action}>
-                    <span className="sd-quick-action-icon">{action.icon}</span>
+                    <span className="sd-quick-action-icon" style={{ display: 'flex', justifyContent: 'center', marginBottom: '6px', color: action.iconColor }}>
+                      <action.icon size={24} />
+                    </span>
                     <p className="sd-quick-action-title">{action.label}</p>
                     <p className="sd-quick-action-desc">{action.desc}</p>
                   </button>
@@ -182,7 +193,9 @@ const StudentDashboard = () => {
             <div className="sd-section-card">
               {saved.length === 0 ? (
                 <div className="sd-empty-state" style={{ padding: '40px 20px' }}>
-                  <span className="sd-empty-icon" style={{ fontSize: '2.5rem' }}>❤️</span>
+                  <span className="sd-empty-icon" style={{ display: 'inline-flex', color: '#ef4444' }}>
+                    <LuHeart size={44} />
+                  </span>
                   <p className="sd-empty-text">No saved colleges yet</p>
                   <button className="sd-primary-btn" onClick={() => navigate('/colleges')}>Explore Colleges</button>
                 </div>
@@ -193,11 +206,17 @@ const StudentDashboard = () => {
                       <img src={college.image} alt={college.name} className="sd-list-item-img" style={{ width: '70px', height: '54px' }} />
                       <div className="sd-list-item-content">
                         <h3 className="sd-list-item-title">{college.name}</h3>
-                        <p className="sd-list-item-subtitle">📍 {college.location}</p>
+                        <p className="sd-list-item-subtitle" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                          <LuMapPin size={12} /> {college.location}
+                        </p>
                         <div className="sd-list-item-tags">
                           <span className="sd-tag">{college.type}</span>
-                          <span className="sd-tag">⭐ {college.rating}</span>
-                          <span className="sd-tag">📈 {college.placement.percentage}%</span>
+                          <span className="sd-tag" style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', color: '#f59e0b' }}>
+                            <LuStar size={11} fill="#f59e0b" /> {college.rating}
+                          </span>
+                          <span className="sd-tag" style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', color: '#10b981' }}>
+                            <LuTrendingUp size={11} /> {college.placement.percentage}%
+                          </span>
                         </div>
                       </div>
                       <div className="sd-list-item-actions">
