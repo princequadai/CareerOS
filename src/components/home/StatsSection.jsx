@@ -1,11 +1,5 @@
 import './StatsSection.css'
 
-const stats = [
-  { icon: '🏫', number: '500+', label: 'Colleges Listed', desc: 'Verified colleges across Patna' },
-  { icon: '🎓', number: '50,000+', label: 'Students Helped', desc: 'Found their dream college' },
-  { icon: '📋', number: '200+', label: 'Courses Available', desc: 'Across all streams' },
-  { icon: '⭐', number: '4.8/5', label: 'Average Rating', desc: 'Trusted by students' },
-]
 
 const features = [
   { icon: '🔍', title: 'Smart College Search', desc: 'Search and filter colleges by course, fees, location, placement and more in seconds.', color: '#eff6ff', border: '#bfdbfe' },
@@ -19,23 +13,6 @@ const features = [
 const StatsSection = () => {
   return (
     <>
-      {/* Stats Bar */}
-      <section className="stats-bar-section">
-        <div className="stats-container">
-          <div className="stats-grid">
-            {stats.map((stat) => (
-              <div key={stat.label} className="stat-item">
-                <span className="stat-icon">{stat.icon}</span>
-                <div>
-                  <h3 className="stat-number">{stat.number}</h3>
-                  <p className="stat-label">{stat.label}</p>
-                  <p className="stat-desc">{stat.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Why Choose Us */}
       <section className="features-section">
