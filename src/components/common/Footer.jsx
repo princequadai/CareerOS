@@ -1,9 +1,13 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { MdSchool } from 'react-icons/md'
 import { FiMail, FiPhone, FiMapPin, FiFacebook, FiTwitter, FiInstagram, FiLinkedin } from 'react-icons/fi'
 import './Footer.css'
 
 const Footer = () => {
+  const location = useLocation()
+  const isCollegeDetails = location.pathname.startsWith('/colleges/') && location.pathname !== '/colleges'
+  const isContactPage = location.pathname === '/contact'
+  const hideEnquiryBtn = isCollegeDetails || isContactPage
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -80,9 +84,11 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-            <Link to="/contact" className="footer-contact-btn">
-              Send Enquiry
-            </Link>
+            {!hideEnquiryBtn && (
+              <Link to="/contact" className="footer-contact-btn">
+                Send Enquiry
+              </Link>
+            )}
           </div>
 
         </div>

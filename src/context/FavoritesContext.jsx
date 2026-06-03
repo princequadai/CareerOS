@@ -25,51 +25,47 @@ export const FavoritesProvider = ({ children }) => {
 
   const toggleFavorite = (id) => {
     const numericId = Number(id)
-    setFavorites((prev) => {
-      const isFav = prev.includes(numericId)
-      if (isFav) {
-        toast.info('Removed from saved colleges', {
-          icon: '💔',
-          theme: 'colored',
-          style: { background: '#1e293b', color: '#fff' }
-        })
-        return prev.filter((fId) => fId !== numericId)
-      } else {
-        toast.success('Saved to your favorites!', {
-          icon: '❤️',
-          theme: 'colored',
-          style: { background: '#2563eb', color: '#fff' }
-        })
-        return [...prev, numericId]
-      }
-    })
-  }
-
-  const removeFavorite = (id) => {
-    const numericId = Number(id)
-    setFavorites((prev) => {
+    const isCurrentlyFav = favorites.includes(numericId)
+    
+    if (isCurrentlyFav) {
+      setFavorites((prev) => prev.filter((fId) => fId !== numericId))
       toast.info('Removed from saved colleges', {
         icon: '💔',
         theme: 'colored',
         style: { background: '#1e293b', color: '#fff' }
       })
-      return prev.filter((fId) => fId !== numericId)
+    } else {
+      setFavorites((prev) => [...prev, numericId])
+      toast.success('Saved to your favorites!', {
+        icon: '❤️',
+        theme: 'colored',
+        style: { background: '#2563eb', color: '#fff' }
+      })
+    }
+  }
+
+  const removeFavorite = (id) => {
+    const numericId = Number(id)
+    setFavorites((prev) => prev.filter((fId) => fId !== numericId))
+    toast.info('Removed from saved colleges', {
+      icon: '💔',
+      theme: 'colored',
+      style: { background: '#1e293b', color: '#fff' }
     })
   }
 
   const addFavorite = (id) => {
     const numericId = Number(id)
-    setFavorites((prev) => {
-      if (!prev.includes(numericId)) {
-        toast.success('Saved to your favorites!', {
-          icon: '❤️',
-          theme: 'colored',
-          style: { background: '#2563eb', color: '#fff' }
-        })
-        return [...prev, numericId]
-      }
-      return prev
-    })
+    const isCurrentlyFav = favorites.includes(numericId)
+    
+    if (!isCurrentlyFav) {
+      setFavorites((prev) => [...prev, numericId])
+      toast.success('Saved to your favorites!', {
+        icon: '❤️',
+        theme: 'colored',
+        style: { background: '#2563eb', color: '#fff' }
+      })
+    }
   }
 
   const isFavorite = (id) => favorites.includes(Number(id))
