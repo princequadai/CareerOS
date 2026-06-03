@@ -336,10 +336,10 @@ const AboutPage = () => {
           <div className="about-colleges-grid">
             {displayedColleges.map((college) => (
               <div key={college.id} className="about-college-card">
-                <div className="about-college-image-wrapper">
-                  <img src={college.image} alt={college.name} className="about-college-image" />
+                <Link to={`/colleges/${college.id}`} className="about-college-image-wrapper">
+                  <img src={college.image} alt={college.name} className="about-college-image clickable-image" />
                   <span className="about-college-badge">{college.type}</span>
-                </div>
+                </Link>
                 <div className="about-college-content">
                   <h3 className="about-college-name">{college.name}</h3>
                   <div className="about-college-meta">

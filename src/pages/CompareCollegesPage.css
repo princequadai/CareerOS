@@ -407,37 +407,90 @@
   }
 
   .cc-selected-card, .cc-add-btn {
-    height: 160px;
+    height: 180px;
+  }
+
+  .cc-card-content {
+    padding: 8px;
   }
 
   .cc-card-name, .cc-add-text {
     font-size: 0.78rem;
   }
 
+  .cc-card-actions {
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .cc-change-btn, .cc-remove-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 6px 4px;
+    font-size: 0.68rem;
+    box-sizing: border-box;
+  }
+
   .cc-picker-dropdown {
-    top: 165px;
+    top: 190px;
+  }
+
+  .cc-table-wrapper {
+    overflow: hidden;
+  }
+
+  .cc-table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .cc-table {
-    min-width: 340px;
+    min-width: 100%;
+    table-layout: auto;
+  }
+
+  /* Sticky first column (feature labels) on mobile */
+  .cc-th-feature,
+  .cc-td-label {
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.08);
   }
 
   .cc-th-feature {
+    background: #f1f5f9 !important;
     width: 100px;
-  }
-
-  .cc-college-name-col {
-    font-size: 0.72rem;
+    min-width: 100px;
   }
 
   .cc-td-label {
     padding: 10px 14px;
     font-size: 0.75rem;
+    background: inherit; /* Inherit alternating row background colors */
+    white-space: normal; /* Allow wrapping if needed */
+    width: 100px;
+    min-width: 100px;
+  }
+
+  .cc-th-college,
+  .cc-td-val {
+    min-width: 140px;
+  }
+
+  .cc-college-name-col {
+    font-size: 0.72rem;
+    display: block;
+    white-space: normal;
+    word-break: break-word;
   }
 
   .cc-td-val {
     padding: 10px 10px;
     font-size: 0.75rem;
+    white-space: normal;
+    word-break: break-word;
   }
 
   .cc-view-btn {
@@ -451,3 +504,4 @@
     display: none;
   }
 }
+

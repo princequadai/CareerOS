@@ -143,7 +143,12 @@ const StudentDashboard = () => {
                 <div className="sd-list-container">
                   {saved.map(college => (
                     <div key={college.id} className="sd-list-item">
-                      <img src={college.image} alt={college.name} className="sd-list-item-img" />
+                      <img 
+                        src={college.image} 
+                        alt={college.name} 
+                        className="sd-list-item-img clickable-image" 
+                        onClick={() => navigate(`/colleges/${college.id}`)}
+                      />
                       <div className="sd-list-item-content">
                         <h3 className="sd-list-item-title">{college.name}</h3>
                         <p className="sd-list-item-subtitle" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
@@ -205,7 +210,13 @@ const StudentDashboard = () => {
                 <div className="sd-list-container">
                   {saved.map(college => (
                     <div key={college.id} className="sd-list-item">
-                      <img src={college.image} alt={college.name} className="sd-list-item-img" style={{ width: '70px', height: '54px' }} />
+                      <img 
+                        src={college.image} 
+                        alt={college.name} 
+                        className="sd-list-item-img clickable-image" 
+                        style={{ width: '70px', height: '54px' }} 
+                        onClick={() => navigate(`/colleges/${college.id}`)}
+                      />
                       <div className="sd-list-item-content">
                         <h3 className="sd-list-item-title">{college.name}</h3>
                         <p className="sd-list-item-subtitle" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>

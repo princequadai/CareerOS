@@ -44,7 +44,12 @@ const FeaturedColleges = () => {
 
               {/* Image */}
               <div className="fc-image-wrapper">
-                <img src={college.image} alt={college.name} className="fc-image" />
+                <img 
+                  src={college.image} 
+                  alt={college.name} 
+                  className="fc-image clickable-image" 
+                  onClick={() => navigate(`/colleges/${college.id}`)}
+                />
                 <div className="fc-badge">
                   {college.type}
                 </div>

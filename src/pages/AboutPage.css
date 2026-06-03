@@ -424,6 +424,7 @@
 .about-college-image-wrapper {
   position: relative;
   height: 150px;
+  display: block;
 }
 
 .about-college-image {

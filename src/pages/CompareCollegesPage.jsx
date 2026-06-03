@@ -63,7 +63,12 @@ const CompareCollegesPage = () => {
             <div key={slot} className="cc-slot-wrapper">
               {selected[slot] ? (
                 <div className="cc-selected-card">
-                  <img src={selected[slot].image} alt={selected[slot].name} className="cc-card-img" />
+                  <img 
+                    src={selected[slot].image} 
+                    alt={selected[slot].name} 
+                    className="cc-card-img clickable-image" 
+                    onClick={() => navigate(`/colleges/${selected[slot].id}`)}
+                  />
                   <div className="cc-card-overlay" />
                   <div className="cc-card-content">
                     <span className="cc-card-type">{selected[slot].type}</span>

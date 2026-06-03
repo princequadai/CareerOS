@@ -87,7 +87,7 @@ const FavoritesPage = () => {
               >
                 {/* College Image Section */}
                 <div className="fav-card-image-wrapper">
-                  <img src={college.image} alt={college.name} className="fav-card-img" />
+                  <img src={college.image} alt={college.name} className="fav-card-img clickable-image" />
                   <div className="fav-card-badge">{college.type}</div>
                   
                   {/* Floating Remove Button */}

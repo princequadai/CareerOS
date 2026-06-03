@@ -68,6 +68,17 @@ img {
   display: block;
 }
 
+/* Clickable Images with hover effects */
+.clickable-image {
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.clickable-image:hover {
+  transform: scale(1.02);
+  filter: brightness(0.96);
+}
+
 ul {
   list-style: none;
 }

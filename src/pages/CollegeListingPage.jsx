@@ -244,7 +244,12 @@ const CollegeListingPage = () => {
                   >
                     {/* Image */}
                     <div className={viewMode === 'grid' ? "cl-image-wrapper" : "cl-list-image-wrapper"}>
-                      <img src={college.image} alt={college.name} className="cl-image" />
+                      <img 
+                        src={college.image} 
+                        alt={college.name} 
+                        className="cl-image clickable-image" 
+                        onClick={() => navigate(`/colleges/${college.id}`)}
+                      />
                       <div className="cl-type-badge">{college.type}</div>
                       <button
                         className="cl-favorite-btn"
