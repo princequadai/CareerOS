@@ -664,6 +664,9 @@
   .cd-stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  .cd-topbar-title {
+    font-size: 1.15rem;
+  }
   .cd-enq-list-item {
     flex-direction: column;
   }
@@ -672,7 +675,20 @@
 /* Small Mobile */
 @media (max-width: 480px) {
   .cd-stats-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .cd-stat-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px;
+  }
+  .cd-stat-value {
+    font-size: 1.15rem;
+  }
+  .cd-topbar-title {
+    font-size: 1.1rem;
   }
 }
 

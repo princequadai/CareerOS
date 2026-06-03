@@ -2,11 +2,13 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FiMenu, FiX, FiHeart, FiUser, FiChevronDown } from 'react-icons/fi'
 import { MdSchool } from 'react-icons/md'
+import { useFavorites } from '../../context/FavoritesContext'
 import './Navbar.css'
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const { favorites } = useFavorites()
   const navigate = useNavigate()
 
   return (
@@ -31,9 +33,11 @@ const Navbar = () => {
         <div className="navbar-right">
 
           {/* Heart icon — desktop only */}
-          <Link to="/favorites" className="navbar-icon-btn">
-            <FiHeart size={20} />
+          <Link to="/favorites" className="navbar-icon-btn navbar-heart-btn" title="Saved Colleges">
+            <FiHeart size={20} fill={favorites.length > 0 ? '#ef4444' : 'none'} color={favorites.length > 0 ? '#ef4444' : 'currentColor'} />
+            {favorites.length > 0 && <span className="navbar-heart-badge">{favorites.length}</span>}
           </Link>
+
 
           {/* Login Dropdown — desktop only */}
           <div className="navbar-dropdown-wrapper">
@@ -80,7 +84,10 @@ const Navbar = () => {
         <div className="navbar-mobile-menu">
           <Link to="/colleges" className="navbar-mobile-link" onClick={() => setMenuOpen(false)}>🏫 Colleges</Link>
           <Link to="/compare" className="navbar-mobile-link" onClick={() => setMenuOpen(false)}>⚖️ Compare</Link>
-          <Link to="/favorites" className="navbar-mobile-link" onClick={() => setMenuOpen(false)}>❤️ Favorites</Link>
+          <Link to="/favorites" className="navbar-mobile-link" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} onClick={() => setMenuOpen(false)}>
+            <span>❤️ Favorites</span>
+            {favorites.length > 0 && <span className="navbar-mobile-badge">{favorites.length}</span>}
+          </Link>
           <Link to="/about" className="navbar-mobile-link" onClick={() => setMenuOpen(false)}>ℹ️ About</Link>
           <Link to="/contact" className="navbar-mobile-link" onClick={() => setMenuOpen(false)}>📞 Contact</Link>
           <div className="navbar-mobile-divider" />

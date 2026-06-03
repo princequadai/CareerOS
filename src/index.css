@@ -163,9 +163,7 @@ ul {
   }
 
   /* ---- HERO SECTION ---- */
-  h1 {
-    font-size: 1.9rem !important;
-  }
+  /* Remove global h1 override to prevent title wrapping on smaller pages */
 
   /* ---- GRIDS → single column ---- */
   [style*="gridTemplateColumns: 'repeat(3"] ,

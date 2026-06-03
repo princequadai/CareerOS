@@ -1,21 +1,16 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FiHeart, FiMapPin, FiStar, FiArrowRight } from 'react-icons/fi'
 import { MdSchool, MdWorkOutline } from 'react-icons/md'
+import { useFavorites } from '../../context/FavoritesContext'
 import colleges from '../../data/colleges.json'
 import './FeaturedColleges.css'
 
 const FeaturedColleges = () => {
   const navigate = useNavigate()
-  const [favorites, setFavorites] = useState([])
+  const { favorites, toggleFavorite } = useFavorites()
 
   const featured = colleges.filter((c) => c.featured).slice(0, 3)
 
-  const toggleFavorite = (id) => {
-    setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]
-    )
-  }
 
   return (
     <section className="featured-section">

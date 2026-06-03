@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { FiSearch, FiFilter, FiGrid, FiList, FiX, FiHeart, FiMapPin, FiStar } from 'react-icons/fi'
 import { MdSchool, MdWorkOutline } from 'react-icons/md'
+import { useFavorites } from '../context/FavoritesContext'
 import colleges from '../data/colleges.json'
 import './CollegeListingPage.css'
 
@@ -9,7 +10,7 @@ const CollegeListingPage = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
-  const [favorites, setFavorites] = useState([])
+  const { favorites, toggleFavorite } = useFavorites()
   const [viewMode, setViewMode] = useState('grid')
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [filters, setFilters] = useState({
@@ -41,16 +42,11 @@ const CollegeListingPage = () => {
     return matchesSearch && matchesType && matchesHostel && matchesRating && matchesCourse && matchesMinFees && matchesMaxFees
   })
 
-  const toggleFavorite = (id) => {
-    setFavorites(prev =>
-      prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]
-    )
-  }
-
   const clearFilters = () => {
     setFilters({ type: '', minFees: '', maxFees: '', hostel: false, minRating: '', course: '' })
     setSearchQuery('')
   }
+
 
   const activeFilterCount = Object.values(filters).filter(v => v !== '' && v !== false).length
 
@@ -119,16 +115,26 @@ const CollegeListingPage = () => {
       <div className="cl-main-container">
         <div className={`cl-content-row ${!sidebarOpen ? 'sidebar-closed' : ''}`}>
 
+          {/* Sidebar Overlay on Mobile */}
+          {sidebarOpen && (
+            <div className="cl-sidebar-overlay" onClick={() => setSidebarOpen(false)} />
+          )}
+
           {/* Sidebar */}
           {sidebarOpen && (
             <aside className="cl-sidebar">
               <div className="cl-sidebar-header">
                 <h3 className="cl-sidebar-title">Filters</h3>
-                {activeFilterCount > 0 && (
-                  <button className="cl-clear-all-btn" onClick={clearFilters}>
-                    Clear All
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  {activeFilterCount > 0 && (
+                    <button className="cl-clear-all-btn" onClick={clearFilters}>
+                      Clear All
+                    </button>
+                  )}
+                  <button className="cl-sidebar-close-btn" onClick={() => setSidebarOpen(false)}>
+                    <FiX size={18} />
                   </button>
-                )}
+                </div>
               </div>
 
               {/* College Type */}

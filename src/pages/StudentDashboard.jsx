@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { FiHome, FiHeart, FiSearch, FiBarChart2, FiSettings, FiLogOut, FiBell, FiX, FiMenu } from 'react-icons/fi'
 import { MdSchool } from 'react-icons/md'
 import { LuHeart, LuSearch, LuMailOpen, LuScale, LuTarget, LuMapPin, LuStar, LuTrendingUp } from 'react-icons/lu'
+import { useFavorites } from '../context/FavoritesContext'
 import colleges from '../data/colleges.json'
 import './StudentDashboard.css'
 
@@ -18,10 +19,11 @@ const StudentDashboard = () => {
   const navigate = useNavigate()
   const [activeNav, setActiveNav] = useState('dashboard')
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [savedColleges, setSavedColleges] = useState([1, 3])
+  const { favorites: savedColleges, removeFavorite } = useFavorites()
 
   const saved = colleges.filter(c => savedColleges.includes(c.id))
-  const removeSaved = (id) => setSavedColleges(prev => prev.filter(c => c !== id))
+  const removeSaved = (id) => removeFavorite(id)
+
 
   return (
     <div className="sd-layout">

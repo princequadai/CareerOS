@@ -1,0 +1,85 @@
+# Implementation Plan - Make Wishlist / Favorites Button Functional
+
+Make the wishlist (favorites) functionality fully functional across the app by introducing a global React Context (`FavoritesContext`) that persists favorite colleges to `localStorage` and keeps the UI synchronized. Create a premium, visually stunning Favorites Page with micro-animations, details, and action buttons.
+
+## User Review Required
+
+> [!IMPORTANT]
+> The favorites will be persisted using `localStorage` so they survive page reloads.
+> The initial state of favorites will contain "Patna Science College" and "Nalanda Medical College" (IDs `1` and `3`) to align with the pre-configured mock data in the student dashboard, so there is immediate interactive content.
+
+## Proposed Changes
+
+We will introduce a central state management system for favorites and integrate it across all pages that display college cards or toggle favorites.
+
+---
+
+### [Component Name] Global State & Context
+
+#### [NEW] [FavoritesContext.jsx](file:///c:/Users/Prince/OneDrive/Desktop/CareerOS/src/context/FavoritesContext.jsx)
+- Create `FavoritesContext` and its provider `FavoritesProvider`.
+- Expose state: `favorites` (array of college IDs), `toggleFavorite(id)`, `addFavorite(id)`, `removeFavorite(id)`, `isFavorite(id)`, and `clearAllFavorites()`.
+- Incorporate `localStorage` persistence.
+- Incorporate `react-toastify` toast notifications when adding or removing items to make the UX feel premium.
+
+#### [MODIFY] [main.jsx](file:///c:/Users/Prince/OneDrive/Desktop/CareerOS/src/main.jsx)
+- Import `FavoritesProvider` from `src/context/FavoritesContext`.
+- Wrap the app's root component inside the `FavoritesProvider`.
+
+---
+
+### [Component Name] UI Shell & Navigation
+
+#### [MODIFY] [Navbar.jsx](file:///c:/Users/Prince/OneDrive/Desktop/CareerOS/src/components/common/Navbar.jsx)
+- Import `useFavorites` from the new context.
+- Render a live count badge (a floating red dot with a number) over the desktop heart icon whenever there are items in the favorites list.
+- Render the badge in the mobile menu navigation link as well.
+
+#### [MODIFY] [Navbar.css](file:///c:/Users/Prince/OneDrive/Desktop/CareerOS/src/components/common/Navbar.css)
+- Add styling for the `.navbar-heart-badge` (absolute positioning, vibrant red/pink background, subtle pulse micro-animation).
+
+---
+
+### [Component Name] College Cards & Details (Synchronize with Context)
+
+#### [MODIFY] [CollegeListingPage.jsx](file:///c:/Users/Prince/OneDrive/Desktop/CareerOS/src/pages/CollegeListingPage.jsx)
+- Replace local `favorites` and `toggleFavorite` state with `favorites` and `toggleFavorite` from `useFavorites()`.
+- Enable live reactive styling for heart buttons based on the global favorites context.
+
+#### [MODIFY] [CollegeDetailsPage.jsx](file:///c:/Users/Prince/OneDrive/Desktop/CareerOS/src/pages/CollegeDetailsPage.jsx)
+- Replace the local `favorite` boolean state with context's `isFavorite(id)` and `toggleFavorite(id)`.
+- Ensure clicking the "Save / Saved" button is persisted globally.
+
+#### [MODIFY] [FeaturedColleges.jsx](file:///c:/Users/Prince/OneDrive/Desktop/CareerOS/src/components/home/FeaturedColleges.jsx)
+- Replace local state with global context favorites.
+
+#### [MODIFY] [StudentDashboard.jsx](file:///c:/Users/Prince/OneDrive/Desktop/CareerOS/src/pages/StudentDashboard.jsx)
+- Replace local state `savedColleges` with `favorites` and `removeFavorite` from the global `useFavorites()` context.
+- Keep the Student Dashboard fully reactive to updates made elsewhere in the app (e.g. if the student removes a favorite from the dashboard, it is removed globally; if they add a favorite on the listing page, it shows up instantly in their dashboard!).
+
+---
+
+### [Component Name] Favorites Page
+
+#### [NEW] [FavoritesPage.css](file:///c:/Users/Prince/OneDrive/Desktop/CareerOS/src/pages/FavoritesPage.css)
+- Implement a premium, responsive glassmorphism aesthetic for the Favorites listing.
+- Highlight empty state, badges, grid listing, hover effects, and call-to-action buttons.
+
+#### [MODIFY] [FavoritesPage.jsx](file:///c:/Users/Prince/OneDrive/Desktop/CareerOS/src/pages/FavoritesPage.jsx)
+- Import `useFavorites` and `colleges` data.
+- Build a fully working dashboard/page showcasing all saved colleges in detail.
+- Display rating badges, location tags, placement package averages, and quick navigation.
+- Implement a beautiful empty state with a call-to-action to "Explore Colleges".
+- Provide action buttons: "View Details", "Remove", and a top header button to "Compare Shortlisted Colleges".
+
+---
+
+## Verification Plan
+
+### Manual Verification
+1. Launch development server: `npm run dev`.
+2. Browse to the home page, verify featured colleges heart buttons toggle correctly with toast notifications.
+3. Browse to the College Listing page `/colleges`, click a heart button to add a college, and verify the count badge on the Navbar increases instantly.
+4. Go to `/student/dashboard`, verify the number of saved colleges matches the number in the context. Remove a saved college from the dashboard list, and verify it updates in the Navbar as well.
+5. Browse to `/favorites`, verify the shortlisted colleges are listed beautifully with high-quality styled cards. Click "View Details" to ensure it routes to the correct page. Click "Remove" and verify the card disappears with a smooth update.
+6. Verify the empty state shows up if all favorites are removed.

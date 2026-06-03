@@ -603,7 +603,11 @@
   }
   .sd-stats-grid,
   .sd-quick-actions-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .sd-topbar-title {
+    font-size: 1.15rem;
   }
   .sd-list-item {
     flex-direction: column;
@@ -613,6 +617,10 @@
     width: 100%;
     height: 120px;
   }
+  .sd-list-item-content {
+    margin-bottom: 8px;
+    width: 100%;
+  }
   .sd-list-item-actions {
     flex-direction: row;
     width: 100%;
@@ -620,6 +628,31 @@
   .sd-action-btn-primary,
   .sd-action-btn-danger {
     flex: 1;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 600px) {
+  .sd-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sd-stat-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px;
+  }
+  .sd-stat-value {
+    font-size: 1.2rem;
+  }
+  .sd-topbar {
+    padding: 12px 14px;
+  }
+  .sd-topbar-left {
+    gap: 8px;
+  }
+  .sd-topbar-title {
+    font-size: 1.1rem;
   }
 }
 

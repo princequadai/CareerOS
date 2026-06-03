@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { FiMapPin, FiStar, FiHeart, FiPhone, FiMail, FiArrowLeft, FiCheck, FiX } from 'react-icons/fi'
 import { MdSchool, MdWorkOutline, MdApartment } from 'react-icons/md'
+import { useFavorites } from '../context/FavoritesContext'
 import colleges from '../data/colleges.json'
 import './CollegeDetailsPage.css'
 
@@ -11,8 +12,10 @@ const CollegeDetailsPage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('Overview')
-  const [favorite, setFavorite] = useState(false)
+  const { isFavorite, toggleFavorite } = useFavorites()
+  const favorite = isFavorite(id)
   const [enquiry, setEnquiry] = useState({ name: '', email: '', phone: '', course: '', message: '' })
+
   const [submitted, setSubmitted] = useState(false)
 
   const college = colleges.find(c => c.id === parseInt(id))
@@ -67,7 +70,7 @@ const CollegeDetailsPage = () => {
                 <button 
                   className="cd-hero-fav-btn"
                   style={{ background: favorite ? '#ef4444' : 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#fff' }} 
-                  onClick={() => setFavorite(!favorite)}
+                  onClick={() => toggleFavorite(college.id)}
                 >
                   <FiHeart size={16} fill={favorite ? '#fff' : 'none'} />
                   <span className="cd-fav-text">{favorite ? 'Saved' : 'Save'}</span>
