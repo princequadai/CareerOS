@@ -52,6 +52,7 @@ const StudentDashboard = () => {
     return location.state?.activeTab || 'dashboard'
   })
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false)
   const { favorites: savedColleges, removeFavorite, toggleFavorite } = useFavorites()
 
   const [exam, setExam] = useState('jee')
@@ -171,7 +172,44 @@ const StudentDashboard = () => {
           </div>
           <div className="sd-topbar-right">
             <button className="sd-bell-btn"><FiBell size={18} /></button>
-            <div className="sd-topbar-avatar">{user?.name ? user.name.split(' ').map(n => n[0]).join('') : 'RK'}</div>
+            <div className="sd-profile-menu-wrapper">
+              <button 
+                className="sd-topbar-avatar-btn" 
+                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                aria-label="Profile menu"
+              >
+                <div className="sd-topbar-avatar">{user?.name ? user.name.split(' ').map(n => n[0]).join('') : 'RK'}</div>
+              </button>
+              {profileMenuOpen && (
+                <>
+                  <div className="sd-profile-menu-overlay" onClick={() => setProfileMenuOpen(false)} />
+                  <div className="sd-profile-dropdown">
+                    <div className="sd-profile-dropdown-header">
+                      <div className="sd-profile-dropdown-avatar">{user?.name ? user.name.split(' ').map(n => n[0]).join('') : 'RK'}</div>
+                      <div>
+                        <p className="sd-profile-dropdown-name">{user?.name || 'Rahul Kumar'}</p>
+                        <p className="sd-profile-dropdown-email">{user?.email || 'student@careeros.in'}</p>
+                      </div>
+                    </div>
+                    <div className="sd-profile-dropdown-divider" />
+                    <button 
+                      className="sd-profile-dropdown-item" 
+                      onClick={() => { setActiveNav('settings'); setProfileMenuOpen(false); }}
+                    >
+                      <FiSettings size={16} />
+                      Settings
+                    </button>
+                    <button 
+                      className="sd-profile-dropdown-logout" 
+                      onClick={() => { logout(); navigate('/'); }}
+                    >
+                      <FiLogOut size={16} />
+                      Logout
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
 
