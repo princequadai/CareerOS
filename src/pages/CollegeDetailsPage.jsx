@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { FiMapPin, FiStar, FiHeart, FiPhone, FiMail, FiArrowLeft, FiCheck, FiX } from 'react-icons/fi'
 import { MdSchool, MdWorkOutline, MdApartment } from 'react-icons/md'
 import { useFavorites } from '../context/FavoritesContext'
+import { submitEnquiry } from '../utils/db'
 import colleges from '../data/colleges.json'
 import './CollegeDetailsPage.css'
 
@@ -17,6 +18,7 @@ const CollegeDetailsPage = () => {
   const [enquiry, setEnquiry] = useState({ name: '', email: '', phone: '', course: '', message: '' })
 
   const [submitted, setSubmitted] = useState(false)
+  const [enquiryLoading, setEnquiryLoading] = useState(false)
 
   const college = colleges.find(c => c.id === parseInt(id))
 
@@ -27,8 +29,26 @@ const CollegeDetailsPage = () => {
     </div>
   )
 
-  const handleEnquiry = () => {
-    if (enquiry.name && enquiry.email && enquiry.phone) setSubmitted(true)
+  const handleEnquiry = async () => {
+    if (!enquiry.name || !enquiry.email || !enquiry.phone) return
+
+    setEnquiryLoading(true)
+    try {
+      await submitEnquiry(college.id, {
+        name: enquiry.name,
+        email: enquiry.email,
+        phone: enquiry.phone,
+        course: enquiry.course,
+        message: enquiry.message,
+        collegeName: college.name
+      })
+      setSubmitted(true)
+    } catch (err) {
+      console.error('Failed to submit enquiry:', err)
+      alert('Failed to submit enquiry. Please try again.')
+    } finally {
+      setEnquiryLoading(false)
+    }
   }
 
   return (

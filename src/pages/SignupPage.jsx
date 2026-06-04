@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FiUser, FiMail, FiLock, FiPhone, FiEye, FiEyeOff } from 'react-icons/fi'
 import { MdSchool } from 'react-icons/md'
+import { useAuth } from '../context/AuthContext'
 import './SignupPage.css'
 
 const roles = [
@@ -14,14 +15,47 @@ const SignupPage = () => {
   const [activeRole, setActiveRole] = useState('student')
   const [showPassword, setShowPassword] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', phone: '', password: '' })
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+
+  const { signup } = useAuth()
 
   const roleColor = roles.find(r => r.key === activeRole)?.color || '#2563eb'
 
-  const handleSignup = () => {
-    if (form.name && form.email && form.password) {
+  const handleSignup = async () => {
+    setError('')
+    if (!form.name || !form.email || !form.password) {
+      setError('Please fill in all required fields.')
+      return
+    }
+    if (form.password.length < 6) {
+      setError('Password must be at least 6 characters.')
+      return
+    }
+
+    setLoading(true)
+    try {
+      await signup(form.email, form.password, form.name, activeRole, form.phone)
       setSubmitted(true)
-      setTimeout(() => navigate('/login'), 2000)
+      setTimeout(() => {
+        if (activeRole === 'student') navigate('/student/dashboard')
+        else navigate('/college/dashboard')
+      }, 2000)
+    } catch (err) {
+      console.error('Signup error:', err)
+      const code = err.code
+      if (code === 'auth/email-already-in-use') {
+        setError('This email is already registered. Please login instead.')
+      } else if (code === 'auth/weak-password') {
+        setError('Password is too weak. Use at least 6 characters.')
+      } else if (code === 'auth/invalid-email') {
+        setError('Invalid email address format.')
+      } else {
+        setError(err.message || 'Signup failed. Please try again.')
+      }
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -76,18 +110,32 @@ const SignupPage = () => {
                   background: activeRole === role.key ? role.color : '#f1f5f9',
                   color: activeRole === role.key ? '#fff' : '#64748b',
                 }}
-                onClick={() => setActiveRole(role.key)}
+                onClick={() => { setActiveRole(role.key); setError('') }}
               >
                 {role.label}
               </button>
             ))}
           </div>
 
+          {error && (
+            <div style={{
+              background: '#fff1f2',
+              border: '1px solid #fecdd3',
+              borderRadius: '8px',
+              padding: '10px 14px',
+              fontSize: '0.85rem',
+              color: '#e11d48',
+              fontFamily: 'Poppins, sans-serif'
+            }}>
+              {error}
+            </div>
+          )}
+
           {submitted ? (
             <div className="sp-success-msg">
               <span className="sp-success-icon">🎉</span>
               <h3 className="sp-success-title">Account Created!</h3>
-              <p className="sp-success-text">Redirecting to login...</p>
+              <p className="sp-success-text">Redirecting to dashboard...</p>
             </div>
           ) : (
             <div className="sp-form">
@@ -118,7 +166,7 @@ const SignupPage = () => {
                   <FiLock size={16} color="#94a3b8" className="sp-input-icon" />
                   <input
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="Create a password"
+                    placeholder="Create a password (min 6 chars)"
                     className="sp-input"
                     value={form.password}
                     onChange={(e) => setForm(p => ({ ...p, password: e.target.value }))}
@@ -133,8 +181,9 @@ const SignupPage = () => {
                 className="sp-submit-btn"
                 style={{ background: roleColor }}
                 onClick={handleSignup}
+                disabled={loading}
               >
-                Create {activeRole === 'college' ? 'College' : 'Student'} Account
+                {loading ? 'Creating account...' : `Create ${activeRole === 'college' ? 'College' : 'Student'} Account`}
               </button>
 
               <p className="sp-footer-text">

@@ -20,6 +20,8 @@ import NotFoundPage from './pages/NotFoundPage'
 import Navbar from './components/common/Navbar'
 import Footer from './components/common/Footer'
 
+import { seedDatabaseIfEmpty } from './utils/seedDatabase'
+
 function AppContent() {
   const location = useLocation()
   const isDashboard = location.pathname.includes('/dashboard')
@@ -27,6 +29,11 @@ function AppContent() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [location.pathname])
+
+  // Seed colleges data to Firebase on first app load
+  useEffect(() => {
+    seedDatabaseIfEmpty()
+  }, [])
 
   return (
     <>

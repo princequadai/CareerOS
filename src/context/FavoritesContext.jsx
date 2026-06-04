@@ -1,13 +1,15 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
+import { useAuth } from './AuthContext'
+import { saveFavorites, onFavoritesChange } from '../utils/db'
 
 const FavoritesContext = createContext()
 
 export const FavoritesProvider = ({ children }) => {
+  const { user } = useAuth()
   const [favorites, setFavorites] = useState(() => {
     try {
       const saved = localStorage.getItem('careeros_favorites')
-      // Default to [1, 3] to match the Student Dashboard's initial layout design
       return saved ? JSON.parse(saved) : [1, 3]
     } catch (e) {
       console.error('Failed to parse favorites from localStorage', e)
@@ -15,18 +17,39 @@ export const FavoritesProvider = ({ children }) => {
     }
   })
 
+  // When user logs in, sync favorites from Firebase RTDB
+  useEffect(() => {
+    if (!user?.uid) return
+
+    const unsubscribe = onFavoritesChange(user.uid, (firebaseFavorites) => {
+      if (firebaseFavorites && Array.isArray(firebaseFavorites) && firebaseFavorites.length > 0) {
+        setFavorites(firebaseFavorites)
+      }
+    })
+
+    return () => unsubscribe()
+  }, [user?.uid])
+
+  // Persist favorites to localStorage (always) and Firebase (when logged in)
   useEffect(() => {
     try {
       localStorage.setItem('careeros_favorites', JSON.stringify(favorites))
     } catch (e) {
       console.error('Failed to save favorites to localStorage', e)
     }
-  }, [favorites])
+
+    // Also save to Firebase if user is logged in
+    if (user?.uid) {
+      saveFavorites(user.uid, favorites).catch(err =>
+        console.error('Failed to save favorites to Firebase:', err)
+      )
+    }
+  }, [favorites, user?.uid])
 
   const toggleFavorite = (id) => {
     const numericId = Number(id)
     const isCurrentlyFav = favorites.includes(numericId)
-    
+
     if (isCurrentlyFav) {
       setFavorites((prev) => prev.filter((fId) => fId !== numericId))
       toast.info('Removed from saved colleges', {
@@ -57,7 +80,7 @@ export const FavoritesProvider = ({ children }) => {
   const addFavorite = (id) => {
     const numericId = Number(id)
     const isCurrentlyFav = favorites.includes(numericId)
-    
+
     if (!isCurrentlyFav) {
       setFavorites((prev) => [...prev, numericId])
       toast.success('Saved to your favorites!', {

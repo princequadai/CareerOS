@@ -11,12 +11,6 @@ const roles = [
   { key: 'admin', label: '🛡️ Admin', color: '#f59e0b' },
 ]
 
-const dummyCredentials = {
-  student: { email: 'student@careeros.in', password: 'student123' },
-  college: { email: 'college@careeros.in', password: 'college123' },
-  admin: { email: 'admin@careeros.in', password: 'admin123' },
-}
-
 const LoginPage = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
@@ -28,37 +22,43 @@ const LoginPage = () => {
 
   const { login } = useAuth()
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setError('')
-    const creds = dummyCredentials[activeRole]
-    if (!form.email || !form.password) { setError('Please fill in all fields.'); return }
-    if (form.email !== creds.email || form.password !== creds.password) { setError('Invalid email or password. Use the hint below.'); return }
+    if (!form.email || !form.password) {
+      setError('Please fill in all fields.')
+      return
+    }
+
     setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      const nameMap = {
-        student: 'Rahul Kumar',
-        college: 'MIT Patna',
-        admin: 'Admin User'
-      }
-      login(form.email, activeRole, nameMap[activeRole])
-      
+    try {
+      const userData = await login(form.email, form.password)
+      const role = userData.role || activeRole
+
       const redirect = searchParams.get('redirect')
-      if (activeRole === 'student') {
+      if (role === 'student') {
         if (redirect === 'predictor') {
           navigate('/student/dashboard', { state: { activeTab: 'predictor' } })
         } else {
           navigate('/student/dashboard')
         }
+      } else if (role === 'college') {
+        navigate('/college/dashboard')
+      } else {
+        navigate('/admin/dashboard')
       }
-      else if (activeRole === 'college') navigate('/college/dashboard')
-      else navigate('/admin/dashboard')
-    }, 1000)
-  }
-
-  const fillDemo = () => {
-    setForm({ email: dummyCredentials[activeRole].email, password: dummyCredentials[activeRole].password })
-    setError('')
+    } catch (err) {
+      console.error('Login error:', err)
+      const code = err.code
+      if (code === 'auth/user-not-found' || code === 'auth/wrong-password' || code === 'auth/invalid-credential') {
+        setError('Invalid email or password.')
+      } else if (code === 'auth/too-many-requests') {
+        setError('Too many attempts. Please try again later.')
+      } else {
+        setError(err.message || 'Login failed. Please try again.')
+      }
+    } finally {
+      setLoading(false)
+    }
   }
 
   const roleColor = roles.find(r => r.key === activeRole)?.color || '#2563eb'
@@ -122,16 +122,6 @@ const LoginPage = () => {
                 {role.label}
               </button>
             ))}
-          </div>
-
-          {/* Demo Hint */}
-          <div className="lp-demo-hint">
-            <span className="lp-demo-email">
-              <strong>{dummyCredentials[activeRole].email}</strong>
-            </span>
-            <button className="lp-demo-btn" onClick={fillDemo}>
-              Auto Fill
-            </button>
           </div>
 
           {error && (

@@ -1,13 +1,31 @@
 import { useState } from 'react'
 import { FiMail, FiPhone, FiMapPin, FiSend } from 'react-icons/fi'
+import { submitContactMessage } from '../utils/db'
 import './ContactPage.css'
 
 const ContactPage = () => {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = () => {
-    if (form.name && form.email && form.message) setSubmitted(true)
+  const handleSubmit = async () => {
+    if (!form.name || !form.email || !form.message) return
+
+    setLoading(true)
+    try {
+      await submitContactMessage({
+        name: form.name,
+        email: form.email,
+        subject: form.subject,
+        message: form.message
+      })
+      setSubmitted(true)
+    } catch (err) {
+      console.error('Failed to submit contact message:', err)
+      alert('Failed to send message. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -82,8 +100,9 @@ const ContactPage = () => {
                 <button
                   className="contact-submit-btn"
                   onClick={handleSubmit}
+                  disabled={loading}
                 >
-                  <FiSend size={16} /> Send Message
+                  <FiSend size={16} /> {loading ? 'Sending...' : 'Send Message'}
                 </button>
               </div>
             )}
