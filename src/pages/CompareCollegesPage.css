@@ -294,6 +294,9 @@
   font-family: 'Poppins', sans-serif;
   border-bottom: 2px solid #e2e8f0;
   text-transform: uppercase;
+  position: sticky;
+  top: 64px;
+  z-index: 30;
 }
 
 .cc-th-college {
@@ -302,6 +305,9 @@
   text-align: center;
   border-bottom: 2px solid #e2e8f0;
   border-left: 1px solid #e2e8f0;
+  position: sticky;
+  top: 64px;
+  z-index: 30;
 }
 
 .cc-college-name-col {
@@ -451,7 +457,6 @@
   }
 
   /* Sticky first column (feature labels) on mobile */
-  .cc-th-feature,
   .cc-td-label {
     position: sticky;
     left: 0;
@@ -460,6 +465,11 @@
   }
 
   .cc-th-feature {
+    position: sticky;
+    left: 0;
+    top: 64px;
+    z-index: 40;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.08);
     background: #f1f5f9 !important;
     width: 100px;
     min-width: 100px;

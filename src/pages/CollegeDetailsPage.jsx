@@ -75,7 +75,7 @@ const CollegeDetailsPage = () => {
                   <FiHeart size={16} fill={favorite ? '#fff' : 'none'} />
                   <span className="cd-fav-text">{favorite ? 'Saved' : 'Save'}</span>
                 </button>
-                <button className="cd-hero-compare-btn" onClick={() => navigate('/compare')}>
+                <button className="cd-hero-compare-btn" onClick={() => navigate('/compare', { state: { compareIds: [college.id] } })}>
                   Compare
                 </button>
               </div>

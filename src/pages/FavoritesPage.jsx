@@ -44,7 +44,7 @@ const FavoritesPage = () => {
             <div className="fav-actions-group">
               <button 
                 className="fav-btn-compare" 
-                onClick={() => navigate('/compare')}
+                onClick={() => navigate('/compare', { state: { compareIds: favoritedColleges.map(c => c.id) } })}
                 title="Compare saved colleges side-by-side"
               >
                 <LuScale size={16} />
@@ -156,7 +156,7 @@ const FavoritesPage = () => {
                     </button>
                     <button 
                       className="fav-btn-card-compare"
-                      onClick={() => navigate('/compare')}
+                      onClick={() => navigate('/compare', { state: { compareIds: [college.id] } })}
                     >
                       Compare
                     </button>

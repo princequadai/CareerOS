@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FiHome, FiEdit, FiMessageSquare, FiSettings, FiLogOut, FiBell, FiX, FiMenu, FiCheck, FiTrash2 } from 'react-icons/fi'
 import { MdSchool } from 'react-icons/md'
+import { useAuth } from '../context/AuthContext'
 import './CollegeDashboard.css'
 
 const navItems = [
@@ -20,8 +21,15 @@ const dummyEnquiries = [
 
 const CollegeDashboard = () => {
   const navigate = useNavigate()
+  const { user, logout } = useAuth()
   const [activeNav, setActiveNav] = useState('dashboard')
   const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  useEffect(() => {
+    if (!user || user.role !== 'college') {
+      navigate('/login?role=college')
+    }
+  }, [user, navigate])
   const [enquiries, setEnquiries] = useState(dummyEnquiries)
   const [profileForm, setProfileForm] = useState({
     name: 'MIT Patna', email: 'college@careeros.in', phone: '+91 98765 43210',
@@ -70,7 +78,7 @@ const CollegeDashboard = () => {
             </button>
           ))}
         </nav>
-        <button className="cd-logout-btn" onClick={() => navigate('/')}>
+        <button className="cd-logout-btn" onClick={() => { logout(); navigate('/') }}>
           <FiLogOut size={18} /> Logout
         </button>
       </aside>

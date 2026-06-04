@@ -310,3 +310,123 @@
   }
 }
 
+/* User Profile Styles */
+.navbar-profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 99px;
+  padding: 6px 12px 6px 6px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #334155;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.navbar-profile-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.navbar-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.navbar-profile-name {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navbar-dropdown-header {
+  padding: 10px 14px;
+}
+
+.navbar-user-email {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin: 0 0 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navbar-user-role-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: #eff6ff;
+  color: #2563eb;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.navbar-logout-dropdown {
+  color: #ef4444 !important;
+}
+
+.navbar-logout-dropdown:hover {
+  background: #fff5f5 !important;
+}
+
+/* Mobile User Info */
+.navbar-mobile-user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 8px;
+  background: #f8fafc;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.navbar-mobile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.navbar-mobile-user-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.navbar-mobile-user-email {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.navbar-mobile-logout {
+  color: #ef4444 !important;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+

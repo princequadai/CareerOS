@@ -323,7 +323,7 @@ const CollegeListingPage = () => {
                         <button className="cl-details-btn" onClick={() => navigate(`/colleges/${college.id}`)}>
                           View Details
                         </button>
-                        <button className="cl-compare-btn" onClick={() => navigate('/compare')}>
+                        <button className="cl-compare-btn" onClick={() => navigate('/compare', { state: { compareIds: [college.id] } })}>
                           Compare
                         </button>
                       </div>

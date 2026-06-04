@@ -665,3 +665,169 @@
     display: none;
   }
 }
+
+/* Rank Predictor Styles */
+.sd-predictor-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  background: #f8fafc;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 32px;
+}
+
+.sd-predictions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.sd-pred-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #ffffff;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.sd-pred-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+}
+
+.sd-pred-img-wrapper {
+  position: relative;
+  height: 160px;
+  width: 100%;
+}
+
+.sd-pred-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sd-pred-chance-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.sd-pred-type-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sd-pred-card-body {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sd-pred-course {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  font-family: 'Poppins', sans-serif;
+  margin: 0 0 4px;
+}
+
+.sd-pred-college-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #2563eb;
+  font-family: 'Poppins', sans-serif;
+  margin: 0 0 16px;
+}
+
+.sd-pred-stats-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  background: #f8fafc;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 1px dashed #e2e8f0;
+}
+
+.sd-pred-stat-lbl {
+  font-size: 0.65rem;
+  color: #64748b;
+  margin: 0 0 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sd-pred-stat-val {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #334155;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sd-pred-actions-row {
+  display: flex;
+  gap: 10px;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 16px;
+}
+
+.sd-pred-btn {
+  flex: 1.2;
+  height: 38px;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.sd-pred-btn-fav {
+  flex: 1;
+  height: 38px;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .sd-predictor-form {
+    grid-template-columns: 1fr;
+    padding: 16px;
+    gap: 14px;
+  }
+  .sd-predictions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

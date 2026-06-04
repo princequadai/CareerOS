@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
 import './StatsSection.css'
 
 
@@ -11,6 +13,27 @@ const features = [
 ]
 
 const StatsSection = () => {
+  const navigate = useNavigate()
+  const { user } = useAuth()
+
+  const handleFeatureClick = (title) => {
+    if (title === 'Smart College Search' || title === 'Real Student Reviews') {
+      navigate('/colleges')
+    } else if (title === 'Side-by-Side Compare') {
+      navigate('/compare')
+    } else if (title === 'Rank-Based Predictor') {
+      if (user && user.role === 'student') {
+        navigate('/student/dashboard', { state: { activeTab: 'predictor' } })
+      } else {
+        navigate('/login?role=student&redirect=predictor')
+      }
+    } else if (title === 'Save Favorites') {
+      navigate('/favorites')
+    } else if (title === 'Direct Enquiry') {
+      navigate('/colleges')
+    }
+  }
+
   return (
     <>
 
@@ -25,10 +48,15 @@ const StatsSection = () => {
 
           <div className="features-grid">
             {features.map((feature) => (
-              <div key={feature.title} className="feature-card" style={{
-                background: feature.color,
-                border: `1px solid ${feature.border}`,
-              }}>
+              <div 
+                key={feature.title} 
+                className="feature-card" 
+                style={{
+                  background: feature.color,
+                  border: `1px solid ${feature.border}`,
+                }}
+                onClick={() => handleFeatureClick(feature.title)}
+              >
                 <div className="feature-icon">{feature.icon}</div>
                 <h3 className="feature-title">{feature.title}</h3>
                 <p className="feature-text">{feature.desc}</p>

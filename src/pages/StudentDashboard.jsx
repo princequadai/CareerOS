@@ -1,9 +1,10 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { FiHome, FiHeart, FiSearch, FiBarChart2, FiSettings, FiLogOut, FiBell, FiX, FiMenu } from 'react-icons/fi'
 import { MdSchool } from 'react-icons/md'
 import { LuHeart, LuSearch, LuMailOpen, LuScale, LuTarget, LuMapPin, LuStar, LuTrendingUp } from 'react-icons/lu'
 import { useFavorites } from '../context/FavoritesContext'
+import { useAuth } from '../context/AuthContext'
 import colleges from '../data/colleges.json'
 import './StudentDashboard.css'
 
@@ -12,17 +13,89 @@ const navItems = [
   { icon: FiHeart, label: 'Saved', key: 'saved' },
   { icon: FiSearch, label: 'Find', key: 'find' },
   { icon: FiBarChart2, label: 'Compare', key: 'compare' },
+  { icon: LuTarget, label: 'Rank Predictor', key: 'predictor' },
   { icon: FiSettings, label: 'Settings', key: 'settings' },
 ]
 
+const CUTOFFS = {
+  jee: [
+    { collegeId: 4, course: 'B.Tech CSE', cutoff: 45000 },
+    { collegeId: 4, course: 'B.Tech ECE', cutoff: 65000 },
+    { collegeId: 4, course: 'BCA', cutoff: 85000 },
+  ],
+  neet: [
+    { collegeId: 3, course: 'MBBS', cutoff: 12000 },
+    { collegeId: 3, course: 'BDS', cutoff: 22000 },
+  ],
+  bcece: [
+    { collegeId: 1, course: 'B.Sc Physics', cutoff: 2500 },
+    { collegeId: 1, course: 'B.Sc Chemistry', cutoff: 3500 },
+    { collegeId: 2, course: 'B.Sc Computer Science', cutoff: 5000 },
+  ],
+  clat: [
+    { collegeId: 6, course: 'LLB', cutoff: 1500 },
+    { collegeId: 6, course: 'LLM', cutoff: 800 },
+  ],
+  cat: [
+    { collegeId: 4, course: 'MBA', cutoff: 5000 },
+    { collegeId: 5, course: 'MBA', cutoff: 9000 },
+    { collegeId: 5, course: 'BBA', cutoff: 12000 },
+  ],
+}
+
 const StudentDashboard = () => {
   const navigate = useNavigate()
-  const [activeNav, setActiveNav] = useState('dashboard')
+  const location = useLocation()
+  const { user, logout } = useAuth()
+  
+  const [activeNav, setActiveNav] = useState(() => {
+    return location.state?.activeTab || 'dashboard'
+  })
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const { favorites: savedColleges, removeFavorite } = useFavorites()
+  const { favorites: savedColleges, removeFavorite, toggleFavorite } = useFavorites()
+
+  const [exam, setExam] = useState('jee')
+  const [rank, setRank] = useState('')
+  const [predictions, setPredictions] = useState([])
+  const [hasPredicted, setHasPredicted] = useState(false)
+
+  useEffect(() => {
+    if (!user || user.role !== 'student') {
+      navigate('/login?role=student')
+    }
+  }, [user, navigate])
+
+  useEffect(() => {
+    if (location.state?.activeTab) {
+      setActiveNav(location.state.activeTab)
+    }
+  }, [location.state])
 
   const saved = colleges.filter(c => savedColleges.includes(c.id))
   const removeSaved = (id) => removeFavorite(id)
+
+  const handlePredict = () => {
+    if (!rank || Number(rank) <= 0) return
+    const userRank = Number(rank)
+    const examCutoffs = CUTOFFS[exam] || []
+    
+    const results = examCutoffs.map(item => {
+      let chance = 'Low'
+      if (userRank <= item.cutoff * 0.8) chance = 'High'
+      else if (userRank <= item.cutoff * 1.1) chance = 'Medium'
+      
+      return {
+        ...item,
+        chance
+      }
+    }).filter(Boolean)
+    
+    const chanceOrder = { High: 0, Medium: 1, Low: 2 }
+    results.sort((a, b) => chanceOrder[a.chance] - chanceOrder[b.chance])
+    
+    setPredictions(results)
+    setHasPredicted(true)
+  }
 
 
   return (
@@ -49,9 +122,9 @@ const StudentDashboard = () => {
         </div>
 
         <div className="sd-user-card">
-          <div className="sd-user-avatar">RK</div>
+          <div className="sd-user-avatar">{user?.name ? user.name.split(' ').map(n => n[0]).join('') : 'RK'}</div>
           <div>
-            <p className="sd-user-name">Rahul Kumar</p>
+            <p className="sd-user-name">{user?.name || 'Rahul Kumar'}</p>
             <p className="sd-user-role">Student</p>
           </div>
         </div>
@@ -72,7 +145,7 @@ const StudentDashboard = () => {
           ))}
         </nav>
 
-        <button className="sd-logout-btn" onClick={() => navigate('/')}>
+        <button className="sd-logout-btn" onClick={() => { logout(); navigate('/') }}>
           <FiLogOut size={18} /> Logout
         </button>
       </aside>
@@ -90,14 +163,15 @@ const StudentDashboard = () => {
               <h1 className="sd-topbar-title">
                 {activeNav === 'dashboard' && 'My Dashboard'}
                 {activeNav === 'saved' && 'Saved Colleges'}
+                {activeNav === 'predictor' && 'Rank Predictor'}
                 {activeNav === 'settings' && 'Settings'}
               </h1>
-              <p className="sd-topbar-subtitle">Welcome back, Rahul! 👋</p>
+              <p className="sd-topbar-subtitle">Welcome back, {user?.name ? user.name.split(' ')[0] : 'Rahul'}! 👋</p>
             </div>
           </div>
           <div className="sd-topbar-right">
             <button className="sd-bell-btn"><FiBell size={18} /></button>
-            <div className="sd-topbar-avatar">RK</div>
+            <div className="sd-topbar-avatar">{user?.name ? user.name.split(' ').map(n => n[0]).join('') : 'RK'}</div>
           </div>
         </div>
 
@@ -178,7 +252,7 @@ const StudentDashboard = () => {
                 {[
                   { icon: LuSearch, iconColor: '#3b82f6', label: 'Search Colleges', desc: 'Find colleges', action: () => navigate('/colleges') },
                   { icon: LuScale, iconColor: '#f59e0b', label: 'Compare', desc: 'Compare colleges', action: () => navigate('/compare') },
-                  { icon: LuTarget, iconColor: '#ef4444', label: 'Rank Predictor', desc: 'Find by rank', action: () => navigate('/colleges') },
+                  { icon: LuTarget, iconColor: '#ef4444', label: 'Rank Predictor', desc: 'Find by rank', action: () => setActiveNav('predictor') },
                   { icon: LuMailOpen, iconColor: '#10b981', label: 'Send Enquiry', desc: 'Contact colleges', action: () => navigate('/colleges') },
                 ].map(action => (
                   <button key={action.label} className="sd-quick-action-card" onClick={action.action}>
@@ -244,14 +318,151 @@ const StudentDashboard = () => {
           </div>
         )}
 
+        {activeNav === 'predictor' && (
+          <div className="sd-content-area">
+            <div className="sd-section-card">
+              <h2 className="sd-section-title" style={{ marginBottom: '16px' }}>Rank-Based College Predictor</h2>
+              <p style={{ textAlign: 'left', marginBottom: '24px', color: '#64748b', fontSize: '0.9rem', lineHeight: '1.5' }}>
+                Enter your entrance exam score or rank to discover colleges where you have a strong chance of admission.
+              </p>
+              
+              <div className="sd-predictor-form">
+                <div className="sd-input-group" style={{ margin: 0 }}>
+                  <label className="sd-label">Select Entrance Exam</label>
+                  <select 
+                    className="sd-input" 
+                    value={exam} 
+                    onChange={(e) => { setExam(e.target.value); setPredictions([]); setHasPredicted(false); }}
+                    style={{ width: '100%', background: '#fff' }}
+                  >
+                    <option value="jee">JEE Main / Bihar UGEAC (Engineering)</option>
+                    <option value="neet">NEET UG (Medical)</option>
+                    <option value="bcece">BCECE (Bihar Science Entrance)</option>
+                    <option value="clat">CLAT (Law Entrance)</option>
+                    <option value="cat">CAT / CMAT (Management / MBA)</option>
+                  </select>
+                </div>
+                
+                <div className="sd-input-group" style={{ margin: 0 }}>
+                  <label className="sd-label">Enter Your General/Category Rank</label>
+                  <input 
+                    type="number" 
+                    className="sd-input" 
+                    placeholder="e.g. 25000"
+                    value={rank}
+                    onChange={(e) => setRank(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handlePredict()}
+                    style={{ width: '100%' }}
+                  />
+                </div>
+                
+                <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+                  <button 
+                    className="sd-primary-btn" 
+                    onClick={handlePredict}
+                    style={{ width: '100%', height: '42px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', fontWeight: '600' }}
+                  >
+                    🎯 Predict Colleges
+                  </button>
+                </div>
+              </div>
+
+              {predictions.length > 0 ? (
+                <div style={{ marginTop: '32px' }}>
+                  <h3 className="sd-section-title" style={{ fontSize: '1.1rem', marginBottom: '16px' }}>Predicted College Courses ({predictions.length})</h3>
+                  <div className="sd-predictions-grid">
+                    {predictions.map(pred => {
+                      const college = colleges.find(c => c.id === pred.collegeId)
+                      if (!college) return null
+                      
+                      let badgeColor = '#ef4444'
+                      let badgeBg = '#fff1f2'
+                      let badgeBorder = '#fecdd3'
+                      if (pred.chance === 'High') {
+                        badgeColor = '#10b981'
+                        badgeBg = '#f0fdf4'
+                        badgeBorder = '#bbf7d0'
+                      } else if (pred.chance === 'Medium') {
+                        badgeColor = '#f59e0b'
+                        badgeBg = '#fffbeb'
+                        badgeBorder = '#fde68a'
+                      }
+
+                      const isSaved = savedColleges.includes(college.id)
+
+                      return (
+                        <div key={`${pred.collegeId}-${pred.course}`} className="sd-pred-card">
+                          <div className="sd-pred-img-wrapper">
+                            <img src={college.image} alt={college.name} className="sd-pred-img" />
+                            <div className="sd-pred-chance-badge" style={{ background: badgeBg, color: badgeColor, borderColor: badgeBorder }}>
+                              {pred.chance} Chance
+                            </div>
+                            <div className="sd-pred-type-badge">
+                              {college.type}
+                            </div>
+                          </div>
+                          
+                          <div className="sd-pred-card-body">
+                            <div>
+                              <h4 className="sd-pred-course">{pred.course}</h4>
+                              <p className="sd-pred-college-name">{college.name}</p>
+                              
+                              <div className="sd-pred-stats-box">
+                                <div className="sd-pred-stat">
+                                  <p className="sd-pred-stat-lbl">Target Cutoff</p>
+                                  <p className="sd-pred-stat-val">{pred.cutoff.toLocaleString()}</p>
+                                </div>
+                                <div className="sd-pred-stat">
+                                  <p className="sd-pred-stat-lbl">Your Rank</p>
+                                  <p className="sd-pred-stat-val" style={{ color: '#2563eb' }}>{Number(rank).toLocaleString()}</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="sd-pred-actions-row">
+                              <button 
+                                className="sd-primary-btn sd-pred-btn" 
+                                onClick={() => navigate(`/colleges/${college.id}`)}
+                              >
+                                View Details
+                              </button>
+                              <button 
+                                className={isSaved ? "sd-action-btn-danger sd-pred-btn-fav" : "sd-action-btn-primary sd-pred-btn-fav"} 
+                                onClick={() => {
+                                  if (isSaved) removeSaved(college.id);
+                                  else toggleFavorite(college.id);
+                                }}
+                              >
+                                {isSaved ? 'Remove Saved' : 'Save College'}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              ) : (
+                hasPredicted && (
+                  <div className="sd-empty-state" style={{ padding: '40px 20px', marginTop: '24px' }}>
+                    <span className="sd-empty-icon" style={{ fontSize: '2.5rem' }}>😔</span>
+                    <p className="sd-empty-text">No college courses found matching your rank.</p>
+                    <p style={{ fontSize: '0.85rem', color: '#64748b', margin: '0 0 16px' }}>Try entering a lower rank or selecting another exam stream.</p>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        )}
+
         {activeNav === 'settings' && (
           <div className="sd-content-area">
             <div className="sd-section-card">
               <div className="sd-settings-header">
-                <div className="sd-settings-avatar">RK</div>
+                <div className="sd-settings-avatar">{user?.name ? user.name.split(' ').map(n => n[0]).join('') : 'RK'}</div>
                 <div>
-                  <h2 className="sd-settings-name">Rahul Kumar</h2>
-                  <p className="sd-settings-email">student@careeros.in</p>
+                  <h2 className="sd-settings-name">{user?.name || 'Rahul Kumar'}</h2>
+                  <p className="sd-settings-email">{user?.email || 'student@careeros.in'}</p>
                 </div>
               </div>
               <div className="sd-form">

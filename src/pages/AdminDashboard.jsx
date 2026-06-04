@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FiHome, FiUsers, FiBook, FiMessageSquare, FiLogOut, FiBell, FiCheck, FiX, FiEye, FiTrash2, FiMenu } from 'react-icons/fi'
 import { MdSchool } from 'react-icons/md'
+import { useAuth } from '../context/AuthContext'
 import colleges from '../data/colleges.json'
 import './AdminDashboard.css'
 
@@ -28,8 +29,15 @@ const dummyEnquiries = [
 
 const AdminDashboard = () => {
   const navigate = useNavigate()
+  const { user, logout } = useAuth()
   const [activeNav, setActiveNav] = useState('dashboard')
   const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  useEffect(() => {
+    if (!user || user.role !== 'admin') {
+      navigate('/login?role=admin')
+    }
+  }, [user, navigate])
   const [collegeList, setCollegeList] = useState(colleges)
   const accent = '#f59e0b'
 
@@ -67,7 +75,7 @@ const AdminDashboard = () => {
             </button>
           ))}
         </nav>
-        <button className="ad-logout-btn" onClick={() => navigate('/')}>
+        <button className="ad-logout-btn" onClick={() => { logout(); navigate('/') }}>
           <FiLogOut size={18} /> Logout
         </button>
       </aside>

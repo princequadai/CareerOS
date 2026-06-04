@@ -1,12 +1,28 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { FiX, FiPlus, FiCheck } from 'react-icons/fi'
 import colleges from '../data/colleges.json'
 import './CompareCollegesPage.css'
 
 const CompareCollegesPage = () => {
   const navigate = useNavigate()
-  const [selected, setSelected] = useState([colleges[0], colleges[3], null])
+  const location = useLocation()
+  
+  const [selected, setSelected] = useState(() => {
+    const compareIds = location.state?.compareIds
+    if (compareIds && Array.isArray(compareIds)) {
+      const mapped = compareIds
+        .map(id => colleges.find(c => c.id === Number(id)))
+        .filter(Boolean)
+      
+      const initial = [...mapped]
+      while (initial.length < 3) {
+        initial.push(null)
+      }
+      return initial.slice(0, 3)
+    }
+    return [colleges[0], colleges[3], null]
+  })
   const [showPicker, setShowPicker] = useState(null)
 
   const addCollege = (slot, college) => {

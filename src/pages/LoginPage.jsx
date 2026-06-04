@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, useSearchParams, Link } from 'react-router-dom'
 import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi'
 import { MdSchool } from 'react-icons/md'
+import { useAuth } from '../context/AuthContext'
 import './LoginPage.css'
 
 const roles = [
@@ -25,6 +26,8 @@ const LoginPage = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
+  const { login } = useAuth()
+
   const handleLogin = () => {
     setError('')
     const creds = dummyCredentials[activeRole]
@@ -33,7 +36,21 @@ const LoginPage = () => {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-      if (activeRole === 'student') navigate('/student/dashboard')
+      const nameMap = {
+        student: 'Rahul Kumar',
+        college: 'MIT Patna',
+        admin: 'Admin User'
+      }
+      login(form.email, activeRole, nameMap[activeRole])
+      
+      const redirect = searchParams.get('redirect')
+      if (activeRole === 'student') {
+        if (redirect === 'predictor') {
+          navigate('/student/dashboard', { state: { activeTab: 'predictor' } })
+        } else {
+          navigate('/student/dashboard')
+        }
+      }
       else if (activeRole === 'college') navigate('/college/dashboard')
       else navigate('/admin/dashboard')
     }, 1000)
